@@ -1,0 +1,34 @@
+.product-grid {
+    width: 90%;
+    margin: 0rem auto;
+    margin-bottom: 4rem;
+    display: grid;
+    gap: 1rem 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.product-filter {
+    width: 90%;
+    margin: auto;
+    display: grid;
+    grid-template-areas: "1 2 3 4";
+    text-align: center;
+}
+
+#product-list {
+    width: 80%;
+    margin: auto;
+}
+
+@media screen and (max-width: 800px) {
+    #product-list {
+        width: 100%;
+        margin: auto;
+    }
+
+    .product-grid {
+        width: 100%;
+        gap: 1rem 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+}

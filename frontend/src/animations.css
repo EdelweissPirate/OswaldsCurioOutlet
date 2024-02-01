@@ -1,0 +1,164 @@
+/* Anim classes */
+
+.anim-marquee {
+    animation: scroll-marquee 30s infinite linear;
+}
+
+.fade-in {
+    opacity: 0;
+    animation: fade-in 1s linear forwards;
+}
+.slide-fade {
+    opacity: 0;
+    transform: translate(100%, 0);
+    animation: slide-fade 1.5s 1s ease-in-out forwards;
+}
+
+.fade-out {
+    opacity: 1;
+    animation: fade-out 1s linear forwards;
+}
+
+.fadeIn-delay {
+    opacity: 0;
+    animation: fade-in 1s 2s linear forwards;
+}
+
+.floatIn-up {
+    opacity: 0;
+    transform: translate(0, 4vh);
+    animation: float-in-up 1s 1s linear forwards;
+}
+
+.floatIn-down {
+    opacity: 0;
+    transform: translate(0, -4vh);
+    animation: float-in-down 1s 1s linear forwards;
+}
+
+.rotate {
+    transform: scaleX(1);
+    animation: rotate 2s linear alternate infinite;
+}
+
+.slide-in {
+    transform: translate(100%, 0);
+    animation: slide-in 1s 1s ease-in-out forwards;
+}
+
+.slide-up {
+    transform: translate(0, 100%);
+    animation: slide-up 1s 1s ease-in-out forwards;
+}
+
+.slide-out {
+    transform: translate(0, 0);
+    animation: slide-out 1s ease-in-out forwards;
+}
+
+.blip {
+    scale: 1;
+    animation: blip-anim .5s ease-out forwards;
+}
+
+/* Keyframes */
+
+@keyframes scroll-marquee {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(calc(-100% - var(--gap)));
+    }
+}
+
+@keyframes slide-in {
+    from {
+        transform: translate(100%, 0);
+    }
+    to {transform: translate(0, 0);
+    }
+}
+
+@keyframes slide-up {
+    from {
+        transform: translate(0, 100%);
+    }
+    to {transform: translate(0, 0);
+    }
+}
+
+@keyframes slide-out {
+    from {
+        transform: translate(0, 0);
+    }
+    to {transform: translate(0, 100%);
+    }
+}
+
+@keyframes rotate {
+    0%   {transform: scaleX(1);}
+    50%  {transform: scaleX(0);}
+    100% {transform: scaleX(-1);}
+}
+    
+@keyframes fade-in {
+    0%   {opacity: 0;}
+    25%  {opacity: 0.2;}
+    50%  {opacity: 0.5;}
+    75%  {opacity: 0.8;}
+    100% {opacity: 1;}
+}
+
+@keyframes slide-fade {
+    from {
+        transform: translate(100%, 0);
+        opacity: 0;
+    }
+    to {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+}
+    
+@keyframes fade-out {
+    100%   {opacity: 0;}
+    75%  {opacity: 0.2;}
+    50%  {opacity: 0.5;}
+    25%  {opacity: 0.8;}
+    0% {opacity: 1;}
+}
+    
+@keyframes float-in-up{
+    0%   {
+        transform: translate(0, 4vh);
+        opacity: 0;
+    }
+    100% {
+        transform: translate(0, 0vh);
+        opacity: 1;
+    };
+}
+    
+@keyframes float-in-down {
+    0%   {
+        transform: translate(0, -4vh);
+        opacity: 0;
+    }
+    100% {
+        transform: translate(0, 0vh);
+        opacity: 1;
+    };
+}
+
+@keyframes blip-anim {
+    0%   {
+        scale: 1;
+    }
+    50%   {
+        scale: 1.4;
+    }
+    100% {
+        scale: 1;
+    };
+}

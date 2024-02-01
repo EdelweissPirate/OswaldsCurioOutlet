@@ -1,0 +1,21 @@
+footer {
+    position: fixed;
+    bottom: 10%;
+    right: 0;
+    width: 20%;
+    height: 5vh;
+    float: right;
+    z-index: 998;
+}
+
+@media screen and (max-width: 800px){
+    footer {
+        position: fixed;
+        bottom: 10%;
+        right: 0;
+        width: 30%;
+        height: 5vh;
+        float: right;
+        z-index: 998;
+    }
+}
