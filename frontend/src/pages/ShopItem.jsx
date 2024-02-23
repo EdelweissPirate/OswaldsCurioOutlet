@@ -19,7 +19,6 @@ function ShopItem() {
                 const response = await fetch(`https://www.dnd5eapi.co${filteredProduct.url}`);
                 const data = await response.json();
                 setData(data)
-                // console.log(data);
             } catch (error) {
                 console.error('Error fetching product data:', error);
             }

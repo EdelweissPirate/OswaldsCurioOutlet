@@ -20,6 +20,13 @@ function Home() {
         switchClass(document.getElementById('home'))
     }, [])
 
+    useEffect(() => {
+        if(!user){
+            navigate('/login')
+        }
+        
+    }, [user, navigate])
+
     const handleClick = () => {
         switchClass(
             document.getElementById('home'),
@@ -36,8 +43,8 @@ function Home() {
             <Title />
 
             <div className='fill click-z absolute center-absolute flex flex-center col'>
-                <button onClick={() => {handleClick()}} className='floatIn-up btn-round hover-button'>
-                    Shop
+                <button onClick={() => {handleClick()}} className='floatIn-up btn-long round-corners hover-button-rev'>
+                    ENTER
                 </button>
             </div>
             <div className='fill click-z absolute flex col' style={{top: '65%'}}>

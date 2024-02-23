@@ -13,7 +13,6 @@ function ProductDescription({ data }) {
     const [quantity, setQuantity] = useState(1)
     
     const { name, desc, cost, equipment_category } = data
-    const { currency } = useSelector(state => state.data)
     const { cartContents } = useSelector(state => state.cart)
 
     const image = "https://placehold.co/350x485"
@@ -28,14 +27,30 @@ function ProductDescription({ data }) {
     const handleAdd = (e) => {
         e.preventDefault()
 
+        let amendedPrice
+        
+        switch (cost.unit) {
+            case 'sp':
+                amendedPrice = cost.quantity * 0.1
+                break;
+
+            case 'cp':
+                amendedPrice = cost.quantity * 0.01
+                break;
+        
+            default:
+                amendedPrice = cost.quantity
+                break;
+        }
+
         const itemToAdd = {
             id: data.index,
             name,
-            category: data.equipment_category,
-            price: data.cost.quantity,
+            category: equipment_category,
+            price: amendedPrice,
             image: null,//data.image,
             quantity,
-            totalPrice: Math.floor(Number(data.cost.quantity) * quantity)
+            totalPrice: Math.floor(Number(cost.quantity) * quantity)
         }
 
         dispatch(addItem(itemToAdd))
@@ -70,7 +85,7 @@ function ProductDescription({ data }) {
                             {cost?
                                 <>
                                     <div className="description-price">
-                                        <p>{cost.quantity} {currency}</p>
+                                        <p>{cost.quantity} {cost.unit.toUpperCase()}</p>
                                     </div>
                                     
                                     <div className='quantity-input flex col'>
@@ -93,21 +108,11 @@ function ProductDescription({ data }) {
                         {desc.length > 0? 
                             <div className="description-info flex flex-center col">
                                 <h3 className='py-1 bordered-title txt-center'>Description</h3>
-                                <div>
+                                <div style={{fontFamily:'roboto'}}>
                                     {desc.map((el, i) => {
-                                        if(i === 0){
-                                            return (
-                                                <p key={'desc_' + i} className='my-half txt-left'>
-                                                    <span style={{fontStyle:"italic"}}>
-                                                        {el}
-                                                    </span>
-                                                </p>
-                                            )
-                                        } else {
-                                            return (
-                                                <p key={'desc_' + i} className='my-half txt-left'>{el}</p>
-                                            )
-                                        }
+                                        return (
+                                            <p key={'desc_' + i} className='my-half txt-left'>{el}</p>
+                                        )
                                     })}
                                 </div>
                             </div>
@@ -116,24 +121,6 @@ function ProductDescription({ data }) {
                         }
 
                         <div className="description-review flex flex-center col">
-                            {/* <h3 className='py-1'>Rarity</h3> */}
-                            {/* TODO */}
-                            {/* {stars.map((item, i) => {
-                                const _stars = new Array(item.rarity).fill(0)
-                                
-                                return (
-                                    <div key={item + i} className='flex col' >
-                                        <h4>{item.author}</h4>
-                                        <h5>{item.date}</h5>
-                                        <div className='review-stars flex row'>
-                                            {_stars.map((star, i) => {
-                                                return <FaStar  key={item.author + '_star_' + i} />
-                                            })}
-                                        </div>
-                                        <p>{item.content}</p>
-                                    </div>
-                                )
-                            })} */}
                         </div>
                     </div>
                 </Wrapper>

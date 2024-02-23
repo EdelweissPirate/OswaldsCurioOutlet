@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
@@ -10,6 +10,14 @@ import { getUser, logout, reset } from "../features/auth/authSlice"
 import { toast } from 'react-toastify'
 
 function Account() {
+    const [data, setData] = useState({
+        name: '',
+        gold: {
+            gp: 0,
+            sp: 0,
+            cp: 0
+        }
+    })
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -18,10 +26,27 @@ function Account() {
     useEffect(() => {
         if(message) toast.info(message)
 
+        async function setName(string) {
+            const stringArr = string.split('');
+            const updatedName = stringArr[0].toUpperCase() + stringArr.slice(1).join('');
+            setData(prevData => ({ ...prevData, name: updatedName }));
+        }
+
+        async function setCurrency(gold) {
+            const updatedGold = {
+                gp: Math.floor(gold),
+                sp: Math.floor((gold - Math.floor(gold)) * 100 / 10),
+                cp: Math.round(((gold - Math.floor(gold)) * 100) % 10)
+            }
+            setData(prevData => ({ ...prevData, gold: updatedGold }));
+        }
+
         if(!user){
             navigate('/')
         } else {
-            dispatch(getUser(user))
+            dispatch(getUser(user))    
+            setName(user.name)
+            setCurrency(user.gold)    
         }
 
         dispatch(reset())
@@ -47,12 +72,22 @@ function Account() {
                                 <div className='account-details txt-center my-1 p-4' style={{minHeight: '400px'}}>
                                     <div className='flex row space-between w-fill my-1'>
                                         <h4>Name</h4>
-                                        <p>{user?.name}</p>
+                                        <p>{data.name}</p>
                                     </div>
 
                                     <div className='flex row space-between w-fill my-1'>
                                         <h4>Gold</h4>
-                                        <p>{user?.gold} GP</p>
+                                        <p>{data.gold.gp} GP</p>
+                                    </div>
+
+                                    <div className='flex row space-between w-fill my-1'>
+                                        <h4>Silver</h4>
+                                        <p>{data.gold.sp} SP</p>
+                                    </div>
+
+                                    <div className='flex row space-between w-fill my-1'>
+                                        <h4>Copper</h4>
+                                        <p>{data.gold.cp} CP</p>
                                     </div>
                                 </div>
 

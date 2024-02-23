@@ -24,9 +24,9 @@ const initialState = {
 // getCategories
 export const getCategories = createAsyncThunk(
     'data/getCategories', 
-    async (thunkAPI) => {
+    async (user, thunkAPI) => {
         try {
-            return await dataService.getCategories()
+            return await dataService.getCategories(user)
         } catch (error) {
             const message = ((error.response && error.response.data && error.response.data.message) || error.message || error.toString())
         
@@ -38,9 +38,9 @@ export const getCategories = createAsyncThunk(
 // getProducts
 export const getProducts = createAsyncThunk(
     'data/getProducts', 
-    async (category, thunkAPI) => {
+    async (data, thunkAPI) => {
         try {
-            return await dataService.getProducts(category)
+            return await dataService.getProducts(data)
         } catch (error) {
             const message = ((error.response && error.response.data && error.response.data.message) || error.message || error.toString())
         

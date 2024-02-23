@@ -1,7 +1,8 @@
-import { FaHome, FaUserAlt, FaShoppingCart, FaCoins } from 'react-icons/fa'
+import { FaHome, FaUserAlt, FaShoppingCart } from 'react-icons/fa'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import './header.css'
+import Coinpurse from '../Coinpurse/Coinpurse'
 
 function Header() {
     const navigate = useNavigate()
@@ -16,37 +17,30 @@ function Header() {
     }
     
     return (
+        <>
         <header className='flex flex-center'>
             <div className='header-holder'>
                 <div className='header-icon header-logo flex flex-center'>
                     <button onClick={e => {handleNavigate(e, '/')}}>
-                        <FaHome />
+                        <FaHome className='font-white' />
                     </button>
                 </div>
-
-                {user ?
-                    <div className="header-gold flex flex-center row">
-                        <h4 style={{paddingRight:'.5rem'}}>{user.gold}</h4>
-                        <FaCoins />
-                    </div> 
-                :
-                    null
-                }
 
                 <div className='header-icon header-login flex flex-center'>
                     <button onClick={e => {handleNavigate(e, user ? '/account' : '/login')}}>
-                        <FaUserAlt />
+                        {user ? 
+                            <FaUserAlt className='font-green' />
+                        :
+                            <FaUserAlt className='font-white' />
+                        }
                     </button>
-
-                    {user ?
-                        <div className='badge badge-login'></div>
-                        : null
-                    }
                 </div>
+
                 <div className='header-icon header-cart flex flex-center'>
                     <button onClick={e => {handleNavigate(e, '/cart')}} >
-                        <FaShoppingCart />
-                        {totalQuantity > 0 ?
+                        <FaShoppingCart className='font-white' />
+                        
+                        {totalQuantity > 0 && user ?
                         <div id='cart-badge' className='badge badge-cart blip'>
                             <p>{totalQuantity < 100 ? totalQuantity : 99}</p>
                         </div>
@@ -56,6 +50,12 @@ function Header() {
                 </div>
             </div>
         </header>
+        {user ?
+            <Coinpurse {...user} />
+        :
+            null
+        }
+        </>
     )
 }
 

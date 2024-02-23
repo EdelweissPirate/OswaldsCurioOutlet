@@ -16,23 +16,18 @@ import {
 
 import { switchClass } from "../utils"
 
-
-
 function Categories() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
+    const { user } = useSelector(state => state.auth)
     const { categories, isLoading, activeFilters} = useSelector(state => state.data)
 
     useEffect(() => {
         dispatch(clearProducts())
         dispatch(clearActiveCategory())
         
-        if(!categories) dispatch(getCategories())
-
-        return () => {
-
-        }
+        if(!categories) dispatch(getCategories(user))
     }, [])
 
     useEffect(() => {
@@ -64,7 +59,14 @@ function Categories() {
 
     const generateCategories = () => {
         const _cats = categories.map((item, i) => {
-            const cat = item.toLowerCase().split(' ').join('-')
+            let cat = item.split('-')
+
+            cat = cat.map(i => {
+                return i.charAt(0).toUpperCase() + i.slice(1)
+            })
+
+            cat = cat.join(' ')
+
             return <button
                 onClick={e => {onClick(e, i)}}
                 onMouseEnter={() => onHover(i)} 
@@ -74,10 +76,10 @@ function Categories() {
             >
                 <div className='product-center flex row flex-center space-between'>
                     <div className='product-icon flex flex-center text-center'>
-                        <ItemIcon itemType={cat} />
+                        <ItemIcon itemType={item} />
                     </div>
                     <div className='product-name flex flex-center text-center'>
-                        <h4>{item}</h4>
+                        <h4>{cat}</h4>
                     </div>
                 </div>
             </button>

@@ -50,7 +50,7 @@ function Login() {
         e.preventDefault()
 
         const userData = {
-            name,
+            name: name.toLowerCase(),
             password
         }
 
@@ -68,7 +68,7 @@ function Login() {
                             <>
                                 <h2>LOGIN</h2>
 
-                                <form onSubmit={handleSubmit} className='flex w-80 flex-center col space-around'>
+                                <form onSubmit={handleSubmit} className='flex w-80 flex-center col space-around' style={{fontFamily:"roboto"}}>
                                     <div>
                                         <input 
                                             type='name' 
@@ -94,12 +94,12 @@ function Login() {
                                         />
                                     </div>
                                     <div>
-                                        <button className='btn-long hover-button round-corners border'>
+                                        <button className='btn-long hover-button-rev round-corners border'>
                                             SUBMIT
                                         </button>
                                     </div>
                                 </form>
-                                <aside className='flex'>
+                                <aside className='flex' style={{fontFamily:'roboto'}}>
                                     <a href='/register'>Not registered? click here</a>
                                 </aside>
                             </>

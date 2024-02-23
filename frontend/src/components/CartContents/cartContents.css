@@ -11,13 +11,9 @@
 }
 
 .cart-key {
-    /* gap: 2rem 0;
-    grid-template-areas: 
-    "🖼️ 🔤 💷 💰 🛒 🔃"; */
-    background-color: #111;
-    color: #fff;
+    background-color: var(--eerie-black);
+    color: var(--timberwolf);
     padding: 1rem 0rem;
-    /* grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); */
 }
 
 @media screen and (max-width: 900px) {
@@ -29,8 +25,8 @@
         width: 100%;
         padding: 1rem 0;
         text-align: center;
-        color: #fff;
-        background-color: #111;
+        color: var(--timberwolf);
+        background-color: var(--eerie-black);
     }
 
     .cart-key {

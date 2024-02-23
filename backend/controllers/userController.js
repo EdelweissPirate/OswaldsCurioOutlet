@@ -31,7 +31,7 @@ const registerUser = asyncHandler(async (req, res) => {
             throw Error('Failed to get character data')
         })
 
-    const gold = charData.currencies.gp
+    const gold = charData.currencies.gp + (charData.currencies.sp * 0.1) + (charData.currencies.cp * 0.01)
 
     //Find if user already exists
     const userExists = await User.findOne({ charCode })
@@ -117,7 +117,7 @@ const loginUser = asyncHandler(async (req, res) => {
             throw Error('Failed to get character data')
         })
 
-    const gold = charData.currencies.gp
+    const gold = charData.currencies.gp + (charData.currencies.sp * 0.1) + (charData.currencies.cp * 0.01)
 
     user.gold = gold
 
@@ -162,15 +162,15 @@ const removeUser = asyncHandler(async (req, res) => {
         throw new Error('Not admin.')
     }
 
-    const { name } = req.body
-    const user = await User.findOne(req.user._id)
+    const { charCode } = req.body
+    const user = await User.findOne({ charCode })
     // const user = await User.findOne({ name })
 
     if(user){
         try {
             await User.deleteOne({ _id: user._id });
             res.status(200).json({
-                message: name + " stricken from the records."
+                message: user.name + " stricken from the records."
             });
         } catch (err) {
             res.status(500);

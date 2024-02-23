@@ -11,16 +11,24 @@ import { getProducts } from "../features/data/dataSlice"
 function Shop() {
     const [data, setData] = useState(null)
     
+    const { user } = useSelector(state => state.auth)
     const { products, activeFilters } = useSelector(state => state.data)
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
     useEffect(() => {
+        if(!user) navigate('/login') 
+
         if(!activeFilters.category){
             navigate('/categories')
         } else {
-            dispatch(getProducts(activeFilters.category))
+            const request = {
+                category: activeFilters.category,
+                token: user.token
+            }
+
+            dispatch(getProducts(request))
         }
 
     }, [])
@@ -31,7 +39,7 @@ function Shop() {
 
     return (
         <>
-            <Helmet title='Shop' />
+            <Helmet title={'Shop - ' + activeFilters.category} />
             <section id="shop" className="slide-up">
                 <Suspense fallback={"Getting products..."}>                    
                     {data ? 

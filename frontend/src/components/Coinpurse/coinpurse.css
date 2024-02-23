@@ -1,0 +1,34 @@
+.coinpurse {
+    position: relative;
+    z-index: -1;
+    width: 50vw;
+    top: -1vh;
+    left: 40vw;
+    padding: 1rem;
+    padding-right: 20rem;
+    margin: none;
+    background: var(--jet);
+    border-radius: 10px;
+    display: grid;
+    grid-template-areas: 
+    "🥉 🥈 🪙";
+}
+
+.coinpurse h4 {
+    color: var(--timberwolf);
+}
+
+.coinpurse-copper {
+    grid-area: 🥉;
+    padding: 0rem .5rem;
+}
+
+.coinpurse-silver {
+    grid-area: 🥈;
+    padding: 0rem .5rem;
+}
+
+.coinpurse-gold {
+    grid-area: 🪙;
+    padding: 0rem .5rem;
+}

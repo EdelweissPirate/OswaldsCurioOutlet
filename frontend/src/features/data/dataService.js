@@ -3,56 +3,78 @@ import axios from 'axios'
 const API_URL = '/api'
 
 //Get Categories
-const getCategories = async () => {
-    axios.defaults.baseURL = `https://www.dnd5eapi.co`
+const getCategories = async (userData) => {
+    const token = userData.token
 
-    const response = await axios.get(API_URL + '/equipment-categories')
+    try {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
 
-    let output = []
+        axios.defaults.baseURL = `http://localhost:5000`
 
-    const bannedWords = [
-        "vehicles", 
-        "light", 
-        "medium",
-        "heavy", 
-        "artisans", 
-        "other", 
-        "martial", 
-        "melee", 
-        "ranged", 
-        "simple", 
-        "standard",
-        "scroll"
-    ]
+        const response = await axios.get(API_URL + '/data/getCategories', config)
 
-    if(response.data){
-        output = response.data.results.map((cat) =>{
-            return cat.name.replace(/'/g, '')
-        })
+        let output = []
 
-        bannedWords.map((el) => {
-            output = output.filter(ii => !ii.toLowerCase().includes(el))
-        })
+        const bannedWords = [
+            "vehicles", 
+            "light", 
+            "medium",
+            "heavy", 
+            "artisans", 
+            "other", 
+            "martial", 
+            "melee", 
+            "ranged", 
+            "simple", 
+            "standard",
+            "scroll"
+        ]
 
-        
+        if(response.data){
+            output = JSON.parse(response.data.categories)
+
+            bannedWords.map((el) => {
+                output = output.filter(ii => !ii.toLowerCase().includes(el))
+            })
+        }
+
+        return output
+    } catch (error) {
+        throw new Error('Failed to retrieve categories')
     }
-
-    return output
 }
 
 //Get Products
-const getProducts = async (category) => {
-    axios.defaults.baseURL = `https://www.dnd5eapi.co`
-    
-    const response = await axios.get(API_URL + '/equipment-categories/' + category)
+const getProducts = async (data) => {  
+    const { category, token } = data
 
-    let output = []
+    try {
+        axios.defaults.baseURL = `http://localhost:5000`
+        const url = `${API_URL}/data/getProducts?name=${encodeURIComponent(category)}`;
+        
+        
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        }
 
-    if(response.data){
-        output = JSON.stringify(response.data.equipment)
+        const response = await axios.get(url, config)
+            .then((result) => {
+                return result.data
+            }).catch((err) => {
+                throw new Error('Failed to get products.', err)
+            });
+
+        return response.products
+    } catch (error) {
+        throw new Error('Failed to retrieve products.', error)
     }
-
-    return output
 }
 
 const dataService = {

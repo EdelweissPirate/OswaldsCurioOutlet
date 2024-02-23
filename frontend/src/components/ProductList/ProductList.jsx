@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 
 import ProductCard from '../ProductCard/ProductCard'
@@ -38,16 +38,19 @@ function ProductList({ products }) {
 
     return (
         <div id='product-list' className='container'>
-            <div className="flex flex-center text-center" style={{padding:"2rem 0rem"}}>
-                <h2>{category.toUpperCase()}</h2>
+            <div className="list-heading flex flex-center text-center" style={{padding:"1rem 0rem"}}>
+                <h2>{category.split('-').join(' ').toUpperCase()}</h2>
             </div>
+            
             <Wrapper>
-                <div className='product-grid'>
-                    {productData?.length > 0 ? 
-                        productData
-                        : <h2>Coming Soon!</h2>
-                    }
-                </div>
+                <Suspense fallback={<h1>Loading...</h1>}>
+                    <div className='product-grid'>
+                        {productData?.length > 0 ? 
+                            productData
+                            : <h2>Coming Soon!</h2>
+                        }
+                    </div>
+                </Suspense>
             </Wrapper>
         </div>
     )

@@ -15,7 +15,6 @@ function Checkout() {
     const navigate = useNavigate()
 
     const { user } = useSelector(state => state.auth)
-    const { currency } = useSelector(state => state.data)
     const { cartContents, cartPrice, isSuccess, isError, isLoading, message } = useSelector(state => state.cart)
 
     useEffect(() => {
@@ -59,39 +58,53 @@ function Checkout() {
                             </div>
                         </div>
                     :
-                    <Wrapper>
-                        <div className="flex flex-center col w-80 m-auto">
-                            <div className='bordered-title txt-center w-fill my-1'>
-                                <h2>Checkout</h2>
-                            </div>
-
-                            <div className='flex row w-fill space-between'>
-                                <div className='flex col'>
-                                    <h3 className='my-1'>Current Gold Pieces: </h3>
-                                    <h3 className='my-1'>Order Total: </h3>
-                                    <h3 className='my-1'>Remaining Gold Pieces: </h3>
+                        <Wrapper>
+                            <div className="flex col w-fill">
+                                <div className='list-heading txt-center w-fill my-1'>
+                                    <h2>Checkout</h2>
                                 </div>
-                                <div className='flex col flex-end'>
-                                    <h3 className='my-1'>{user.gold + ' ' + currency}</h3>
-                                    <h3 className='my-1'>{cartPrice + ' ' + currency}</h3>
-                                    <h3 className='my-1'>{Math.floor(user.gold - cartPrice) + ' ' + currency}</h3>
+
+                                <div className="flex flex-center col w-fill">
+                                    <h3 className='list-bg w-fill txt-center p-1'>Coinpurse Contents</h3>
+                                    <div className="list-bg flex row w-fill space-around">
+                                        <h3 className='my-1'>{Math.round(((user.gold - Math.floor(user.gold)) * 100) % 10) + ' CP'}</h3>
+                                        <h3 className='my-1'>{Math.floor(user.gold - Math.floor(user.gold)) * 100 / 10 + ' SP'}</h3>
+                                        <h3 className='my-1'>{Math.floor(user.gold) + ' GP'}</h3>
+                                    </div>
+                                </div>
+
+                                <div className="flex flex-center col w-fill">
+                                    <h3 className='list-bg w-fill txt-center p-1'>Order Total</h3>
+                                    <div className="list-bg flex row w-fill space-around">
+                                        <h3 className='my-1'>{Math.round(((cartPrice - Math.floor(cartPrice)) * 100) % 10) + ' CP'}</h3>
+                                        <h3 className='my-1'>{Math.floor(cartPrice - Math.floor(cartPrice)) * 100 / 10 + ' SP'}</h3>
+                                        <h3 className='my-1'>{Math.floor(cartPrice) + ' GP'}</h3>
+                                    </div>
+                                </div>
+
+                                <div className="flex flex-center col w-fill">
+                                    <h3 className='list-bg w-fill txt-center p-1'>Remaining</h3>
+                                    <div className="list-bg flex row w-fill space-around">
+                                        <h3 className='my-1'>{Math.round((((user.gold - cartPrice) - Math.floor((user.gold - cartPrice))) * 100) % 10) + ' CP'}</h3>
+                                        <h3 className='my-1'>{Math.floor((user.gold - cartPrice) - Math.floor((user.gold - cartPrice))) * 100 / 10 + ' SP'}</h3>
+                                        <h3 className='my-1'>{Math.floor(user.gold - cartPrice) + ' GP'}</h3>
+                                    </div>
+                                </div>
+
+                                <div className='flex flex-center w-fill my-1'>
+                                    {user.gold - cartPrice >= 0?
+                                            <button 
+                                            className="btn-long border round-corners hover-button-rev w-80 m-auto" 
+                                            onClick={e => handlePurchase(e)}
+                                        >
+                                            CONFIRM PURCHASE
+                                        </button>
+                                    :
+                                        <div className=" spacer w-fill txt-center"><h2>Not enough gold</h2></div>
+                                    }
                                 </div>
                             </div>
-
-                            <div className='w-fill my-1'>
-                                {user.gold - cartPrice >= 0?
-                                        <button 
-                                        className="m-auto btn-long border round-corners hover-button-rev w-fill" 
-                                        onClick={e => handlePurchase(e)}
-                                    >
-                                        CONFIRM PURCHASE
-                                    </button>
-                                :
-                                    <div className=" spacer w-fill txt-center"><h2>Not enough gold</h2></div>
-                                }
-                            </div>
-                        </div> 
-                    </Wrapper>
+                        </Wrapper>
                     }
                 </CommonContainer>
             </section>
