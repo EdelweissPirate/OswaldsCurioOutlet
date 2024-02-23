@@ -1,12 +1,11 @@
 {
-    "version": 2,
+    "version": 3,
     "builds": [
         { "src": "backend/server.js", "use": "@vercel/node" },
-        { "src": "frontend", "use": "@vercel/static-vite" }
+        { "src": "frontend/dist", "use": "@vercel/static-vite" }
     ],
     "routes": [
         { "src": "/api/(.*)", "dest": "backend/server.js" },
-        { "handle": "filesystem" },
-        { "src": "/(.*)", "dest": "/frontend/$1" }
+        { "src": "/(.*)", "dest": "/frontend/dist/$1" }
     ]
 }
