@@ -5,6 +5,7 @@ const API_URL = '/api/users'
 //Register user
 const register = async (userData) => {
     // axios.defaults.baseURL = `http://localhost:5000`
+    axios.defaults.baseURL = "https://oco-stockroom.vercel.app/api"//import.meta.env.REACT_APP_BASE_URL
 
     const response = await axios.post(API_URL + '/register', userData)
     
@@ -18,6 +19,7 @@ const register = async (userData) => {
 //Login user
 const login = async (userData) => {
     // axios.defaults.baseURL = `http://localhost:5000`
+    axios.defaults.baseURL = "https://oco-stockroom.vercel.app/api"//import.meta.env.REACT_APP_BASE_URL
 
     try {
         const response = await axios.post(API_URL + '/login', userData)
@@ -35,6 +37,7 @@ const login = async (userData) => {
 //Login user
 const getUser = async (userData) => {
     // axios.defaults.baseURL = `http://localhost:5000`
+    axios.defaults.baseURL = "https://oco-stockroom.vercel.app/api"//import.meta.env.REACT_APP_BASE_URL
 
     const token = userData.token
 

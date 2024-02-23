@@ -4,6 +4,8 @@ const API_URL = '/api'
 
 //Get Categories
 const getCategories = async (userData) => {
+    axios.defaults.baseURL = "https://oco-stockroom.vercel.app/api"//import.meta.env.REACT_APP_BASE_URL
+
     const token = userData.token
 
     try {
@@ -49,7 +51,9 @@ const getCategories = async (userData) => {
 }
 
 //Get Products
-const getProducts = async (data) => {  
+const getProducts = async (data) => {
+    axios.defaults.baseURL = "https://oco-stockroom.vercel.app/api"//import.meta.env.REACT_APP_BASE_URL
+    
     const { category, token } = data
 
     try {

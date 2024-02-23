@@ -5,6 +5,7 @@ const API_URL = '/api/users'
 // Do Checkout
 const doPurchase = async (data) => {
     // axios.defaults.baseURL = `http://localhost:5000`
+    axios.defaults.baseURL = "https://oco-stockroom.vercel.app/api"//import.meta.env.REACT_APP_BASE_URL
     
     const {user, cart} = data
 
