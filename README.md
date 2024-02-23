@@ -14,5 +14,4 @@
 
 <p>
     To create a new user account you will need a public character on DnD Beyond and a their character ID. to find the character ID view the player sheet on DnDBeyond.com and take the long number at the end of the URL.
-</p>"# OswaldsCurioOutlet" 
-"# OswaldsCurioOutlet" 
+</p>
