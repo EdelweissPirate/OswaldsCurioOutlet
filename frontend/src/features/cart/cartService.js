@@ -1,10 +1,10 @@
 import axios from 'axios'
 
-const API_URL = '/api'
+const API_URL = '/api/users'
 
 // Do Checkout
 const doPurchase = async (data) => {
-    axios.defaults.baseURL = `http://localhost:5000`
+    // axios.defaults.baseURL = `http://localhost:5000`
     
     const {user, cart} = data
 
@@ -38,7 +38,7 @@ const doPurchase = async (data) => {
     })
 
     const response = await axios.post(
-        API_URL + '/users/buy', 
+        API_URL + '/buy', 
         {
             name: user.name,
             purchases: JSON.stringify(purchases),

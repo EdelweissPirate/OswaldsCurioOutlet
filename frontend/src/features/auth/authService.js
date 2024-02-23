@@ -4,7 +4,7 @@ const API_URL = '/api/users'
 
 //Register user
 const register = async (userData) => {
-    axios.defaults.baseURL = `http://localhost:5000`
+    // axios.defaults.baseURL = `http://localhost:5000`
 
     const response = await axios.post(API_URL + '/register', userData)
     
@@ -17,7 +17,7 @@ const register = async (userData) => {
 
 //Login user
 const login = async (userData) => {
-    axios.defaults.baseURL = `http://localhost:5000`
+    // axios.defaults.baseURL = `http://localhost:5000`
 
     try {
         const response = await axios.post(API_URL + '/login', userData)
@@ -34,7 +34,8 @@ const login = async (userData) => {
 
 //Login user
 const getUser = async (userData) => {
-    axios.defaults.baseURL = `http://localhost:5000`    
+    // axios.defaults.baseURL = `http://localhost:5000`
+
     const token = userData.token
 
     try {

@@ -13,7 +13,7 @@ const getCategories = async (userData) => {
             }
         }
 
-        axios.defaults.baseURL = `http://localhost:5000`
+        // axios.defaults.baseURL = `http://localhost:5000`
 
         const response = await axios.get(API_URL + '/data/getCategories', config)
 
@@ -53,7 +53,7 @@ const getProducts = async (data) => {
     const { category, token } = data
 
     try {
-        axios.defaults.baseURL = `http://localhost:5000`
+        // axios.defaults.baseURL = `http://localhost:5000`
         const url = `${API_URL}/data/getProducts?name=${encodeURIComponent(category)}`;
         
         
